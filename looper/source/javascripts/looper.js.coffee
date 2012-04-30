@@ -5,26 +5,29 @@ $ ->
 
   tracks = []
   tracks_total = 0
+  tracks_loaded = 0
   $cont = $ '#loop-machine'
 
   tracks_ready = ->
     for track in tracks
       console.log track
-      track.play()
 
   iter_row = (i) ->
     $row = $cont.find('.track').eq(i)
     j = 0
     $cells = $row.find('.cell')
     cells_count = $cells.size()
-    ( ->
+    res = ->
+      # sound = tracks[i]
       $cell = $cells.eq(j)
       j = (j + 1) % cells_count
       $cell.addClass('playing')
-      setTimeout (-> $cell.removeClass('playing')), 1000
-      if not $cell.hasClass('active')
+      setTimeout (-> $cell.removeClass('playing')), 1000 # subscribe to play end
+      if $cell.hasClass('active')
+        # play sound here
         return
-    )
+      # set timeout for self with sound.readyState == 3 ? sound.duration : sound.durationEstimate
+
 
   build_ui = ->
     SQ_COUNT = 10
@@ -37,13 +40,18 @@ $ ->
     $cont.find('.cell').click ->
       $(this).toggleClass('active')
 
+  track_loaded = (i) ->
+    (sound) ->
+      tracks[i] = sound
+      tracks_loaded += 1
+      if tracks_loaded == tracks_total
+        tracks_ready()
+        # iter_row(i) //, sound.readyState == 3 ? sound.duration : sound.durationEstimate
+
   SC.get '/playlists/' + PLAYLIST_ID, (pl) ->
     tracks_total = pl.tracks.length
     build_ui()
-    for track in pl.tracks
+    for i in [0...tracks_total]
+      track = pl.tracks[i]
       console.log "Fetching #{track.id}"
-      SC.stream "/tracks/#{track.id}", {}, (sound) ->
-        tracks.push sound
-        console.log "+ Fetched #{tracks.length}"
-        if tracks.length == tracks_total
-          tracks_ready()
+      SC.stream "/tracks/#{track.id}", {}, track_loaded(i)
