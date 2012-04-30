@@ -1,0 +1,61 @@
+@import "compass"
+
+$link-color:         #0388a6
+$link-hover-color:   #009ce0
+$link-focus-color:   false
+$link-active-color:  false
+$link-visited-color: false
+
+$font-color:  #2a2a2a
+$font-family: Verdana, sans-serif
+$base-font-size:   12px
+$base-line-height: 18px
+
+$total-cols: 12
+$col-width: 4em
+$gutter-width: 1em
+$side-gutter-width: $gutter-width
+
+@include global-reset
+
+body
+    font-size: 62.5%
+    font-family: $font-family
+    color: $font-color
+
+
+a 
+    +link-colors($link-color, $link-hover-color, $link-focus-color, $link-active-color, $link-visited-color)
+
+
+#main 
+    padding: 50px
+    h1
+        margin-bottom: 20px
+    #loop-machine
+        .track
+            overflow: hidden
+            zoom: 1
+            clear: both
+            padding: 4px
+            .cell
+                float: left
+                width: 30px
+                height: 30px
+                margin-right: 5px
+                border: 1px solid #ccc
+                +transition(all 0.3s linear)
+                background-color: #ff9
+                &.playing
+                    +box-shadow(1px 1px 3px rgba(#999, 0.3), -1px -1px 3px rgba(#999, 0.3))
+                &:hover
+                    background-color: #ff3
+                    +box-shadow(1px 1px 3px rgba(#999, 0.6), -1px -1px 3px rgba(#999, 0.6))
+                &.active
+                    border-color: #fc9
+                    +box-shadow(1px 1px 6px rgba(#f99, 0.3), -1px -1px 6px rgba(#f99, 0.3))
+                    background-color: #ff0
+                    &.playing
+                        background-color: #9ff
+                        border-color: #99f
+                        +box-shadow(1px 1px 12px rgba(#9cf, 0.8), -1px -1px 12px rgba(#9cf, 0.8))

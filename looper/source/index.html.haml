@@ -1,4 +1,8 @@
 - content_for :head do
-  %title The Middleman!
+    %title Loop machine
 
-%h1 The Middleman is watching.
+- content_for :scripts do
+    = javascript_include_tag "looper"
+
+%h1 Loop machine
+#loop-machine
