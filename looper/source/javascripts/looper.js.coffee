@@ -47,7 +47,7 @@ $ ->
       if tracks_loaded == tracks_total
         tracks_ready()
 
-  SC.get '/playlists/' + PLAYLIST_ID, (pl) ->
+  SC.get '/playlists/' + PLAYLIST_ID, autoLoad: true, (pl) ->
     tracks_total = pl.tracks.length
     build_ui()
     for i in [0...tracks_total]
