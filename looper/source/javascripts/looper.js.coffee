@@ -10,7 +10,6 @@ $ ->
 
   tracks_ready = ->
     for i in [0...tracks_total]
-      console.log tracks[i].readyState
       iter_row(i)()
 
   iter_row = (i) ->
@@ -47,9 +46,9 @@ $ ->
       if tracks_loaded == tracks_total
         tracks_ready()
 
-  SC.get '/playlists/' + PLAYLIST_ID, autoLoad: true, (pl) ->
+  SC.get '/playlists/' + PLAYLIST_ID, (pl) ->
     tracks_total = pl.tracks.length
     build_ui()
     for i in [0...tracks_total]
       track = pl.tracks[i]
-      SC.stream "/tracks/#{track.id}", track_loaded(i)
+      SC.stream "/tracks/#{track.id}", {autoLoad: true}, track_loaded(i)
