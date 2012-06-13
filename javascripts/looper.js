@@ -12,10 +12,9 @@
     tracks_loaded = 0;
     $cont = $('#loop-machine');
     tracks_ready = function() {
-      var i, _results;
+      var i, _i, _results;
       _results = [];
-      for (i = 0; 0 <= tracks_total ? i < tracks_total : i > tracks_total; 0 <= tracks_total ? i++ : i--) {
-        console.log(tracks[i].readyState);
+      for (i = _i = 0; 0 <= tracks_total ? _i < tracks_total : _i > tracks_total; i = 0 <= tracks_total ? ++_i : --_i) {
         _results.push(iter_row(i)());
       }
       return _results;
@@ -45,11 +44,11 @@
       return res;
     };
     build_ui = function() {
-      var $cell, $row, SQ_COUNT, i, j;
+      var $cell, $row, SQ_COUNT, i, j, _i, _j;
       SQ_COUNT = 10;
-      for (i = 0; 0 <= tracks_total ? i < tracks_total : i > tracks_total; 0 <= tracks_total ? i++ : i--) {
+      for (i = _i = 0; 0 <= tracks_total ? _i < tracks_total : _i > tracks_total; i = 0 <= tracks_total ? ++_i : --_i) {
         $row = $('<div>').addClass('track').appendTo($cont);
-        for (j = 0; 0 <= SQ_COUNT ? j < SQ_COUNT : j > SQ_COUNT; 0 <= SQ_COUNT ? j++ : j--) {
+        for (j = _j = 0; 0 <= SQ_COUNT ? _j < SQ_COUNT : _j > SQ_COUNT; j = 0 <= SQ_COUNT ? ++_j : --_j) {
           $cell = $('<div>').addClass('cell').appendTo($row);
         }
       }
@@ -61,19 +60,21 @@
       return function(sound) {
         tracks[i] = sound;
         tracks_loaded += 1;
-        if (tracks_loaded === tracks_total) return tracks_ready();
+        if (tracks_loaded === tracks_total) {
+          return tracks_ready();
+        }
       };
     };
-    return SC.get('/playlists/' + PLAYLIST_ID, {
-      autoLoad: true
-    }, function(pl) {
-      var i, track, _results;
+    return SC.get('/playlists/' + PLAYLIST_ID, function(pl) {
+      var i, track, _i, _results;
       tracks_total = pl.tracks.length;
       build_ui();
       _results = [];
-      for (i = 0; 0 <= tracks_total ? i < tracks_total : i > tracks_total; 0 <= tracks_total ? i++ : i--) {
+      for (i = _i = 0; 0 <= tracks_total ? _i < tracks_total : _i > tracks_total; i = 0 <= tracks_total ? ++_i : --_i) {
         track = pl.tracks[i];
-        _results.push(SC.stream("/tracks/" + track.id, track_loaded(i)));
+        _results.push(SC.stream("/tracks/" + track.id, {
+          autoLoad: true
+        }, track_loaded(i)));
       }
       return _results;
     });
