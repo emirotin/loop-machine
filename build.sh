@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git checkout master
-cd source
+cd looper
 middleman build
 git checkout gh-pages
 cp -R build/* ..
