@@ -4,7 +4,7 @@ git checkout master
 cd looper
 middleman build
 git checkout gh-pages
-cp -R build/* ..
+cp -R ./* ..
 git add .
 git commit -am "build"
 git push
