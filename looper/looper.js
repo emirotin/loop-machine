@@ -80,7 +80,7 @@ $(() => {
     });
   };
 
-  onTrackLoaded = i => sound => {
+  const onTrackLoaded = i => sound => {
     tracks[i] = sound;
     tracksLoadedCount += 1;
     if (tracksLoadedCount == tracksTotalCount) {
