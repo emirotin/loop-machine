@@ -1,10 +1,9 @@
 #!/bin/sh
 
 git checkout master
-cd looper
-middleman build
+cp -r looper tmp
 git checkout gh-pages
-cp -R ./* ..
+cp -r tmp/* .
 git add .
 git commit -am "build"
 git push

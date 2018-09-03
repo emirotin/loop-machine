@@ -1,0 +1,76 @@
+/*$link-color:
+$total-cols: 12
+$col-width: 4em
+$gutter-width: 1em
+$side-gutter-width: $gutter-width
+*/
+
+body {
+  font-size: 62.5%;
+  font-family: Verdana, sans-serif;
+  color: #2a2a2a;
+}
+
+h1 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+a, a:active, a:visited {
+  color: #0388a6;
+}
+
+a:hover {
+  color: #009ce0;
+}
+
+
+
+#main {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 50px;
+}
+
+#loop-machine .track {
+  overflow: hidden;
+  zoom: 1;
+  clear: both;
+  padding: 4px;
+}
+
+#loop-machine .cell {
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  transition: all 0.3s linear;
+  background-color: #ff9;
+}
+
+#loop-machine .cell.playing {
+  box-shadow: 1px 1px 3px rgba(#999, 0.3),
+    -1px -1px 3px rgba(#999, 0.3);
+}
+
+#loop-machine .cell:hover {
+  background-color: #ff3;
+  box-shadow: 1px 1px 3px rgba(#999, 0.6),
+    -1px -1px 3px rgba(#999, 0.6);
+}
+
+#loop-machine .cell.active {
+  border-color: #fc9;
+  box-shadow: 1px 1px 6px rgba(#f99, 0.3),
+    -1px -1px 6px rgba(#f99, 0.3);
+  background-color: #fd0;
+}
+
+#loop-machine .cell.active.playing {
+  background-color: #9ff;
+  border-color: #99f;
+  box-shadow: 1px 1px 12px rgba(#9cf, 0.8),
+    -1px -1px 12px rgba(#9cf, 0.8);
+}
